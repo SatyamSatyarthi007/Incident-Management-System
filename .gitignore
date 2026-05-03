@@ -1,0 +1,59 @@
+# ══════════════════════════════════════════════════════════════
+#  Incident Management System — .gitignore
+# ══════════════════════════════════════════════════════════════
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# ── Testing ───────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Virtual Environments ─────────────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Node / Frontend ──────────────────────────────────────────
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# ── Environment Variables (SECRETS!) ─────────────────────────
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ── IDE / Editor ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Docker ───────────────────────────────────────────────────
+# Don't commit volume data if stored locally
+data/
+pg_data/
+mongo_data/
+redis_data/
+
+# ── OS Files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/

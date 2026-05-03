@@ -1,0 +1,341 @@
+/* ── Live Feed ─────────────────────────────────────────────────────────── */
+
+.livefeed {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.livefeed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.livefeed-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.livefeed-title svg {
+  color: var(--accent-primary);
+}
+
+.livefeed-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: var(--accent-primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 100px;
+}
+
+/* ── Filters ───────────────────────────────────────────────────────────── */
+
+.livefeed-filters {
+  display: flex;
+  gap: 4px;
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.filter-active {
+  color: white;
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.filter-active:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: white;
+}
+
+/* ── Incident List ─────────────────────────────────────────────────────── */
+
+.livefeed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Incident Card ─────────────────────────────────────────────────────── */
+
+.incident-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  animation: fadeIn 0.3s ease both;
+  position: relative;
+}
+
+.incident-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.incident-card.severity-p0::before { background: var(--severity-p0); }
+.incident-card.severity-p1::before { background: var(--severity-p1); }
+.incident-card.severity-p2::before { background: var(--severity-p2); }
+
+.incident-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.incident-card:hover::before {
+  opacity: 1;
+}
+
+.incident-card-selected {
+  border-color: var(--accent-border);
+  background: var(--accent-light);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+.incident-card-selected::before {
+  opacity: 1;
+  background: var(--accent-primary) !important;
+}
+
+/* ── Card Header ───────────────────────────────────────────────────────── */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.card-badges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.card-id {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Card Body ─────────────────────────────────────────────────────────── */
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.card-source {
+  font-weight: 500;
+  color: var(--accent-primary);
+}
+
+.meta-dot {
+  color: var(--text-muted);
+  font-size: 8px;
+}
+
+/* ── Card Footer ───────────────────────────────────────────────────────── */
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.card-time {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.card-action-btn {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-primary);
+  background: var(--accent-light);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.card-action-btn:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* ── P0 Glow ───────────────────────────────────────────────────────────── */
+
+.incident-card.severity-p0 {
+  border-color: rgba(220, 38, 38, 0.15);
+}
+
+.incident-card.severity-p0.p0-active {
+  animation: fadeIn 0.3s ease both, p0Pulse 3s ease-in-out infinite;
+}
+
+@keyframes p0Pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  50%      { box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08); }
+}
+
+/* ── Empty State ───────────────────────────────────────────────────────── */
+
+.livefeed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.livefeed-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.livefeed-empty h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.livefeed-empty p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .livefeed-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .livefeed-filters {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .incident-card {
+    padding: 12px 14px;
+  }
+
+  .card-title {
+    font-size: 13px;
+  }
+
+  .card-meta {
+    font-size: 12px;
+  }
+
+  .card-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .livefeed-title {
+    font-size: 16px;
+  }
+
+  .filter-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .card-id {
+    align-self: flex-end;
+    margin-top: -20px;
+  }
+
+  .card-meta {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-dot {
+    display: none;
+  }
+
+  .card-footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .card-action-btn {
+    text-align: center;
+  }
+
+  .livefeed-empty {
+    padding: 40px 16px;
+  }
+}
+

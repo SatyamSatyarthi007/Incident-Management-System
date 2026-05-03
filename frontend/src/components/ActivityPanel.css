@@ -1,0 +1,201 @@
+/* ── Activity Panel (right sidebar when no incident selected) ──────────── */
+
+.activity-panel {
+  padding: 24px;
+  animation: slideInRight 0.3s ease;
+}
+
+/* ── On-Call Schedule ──────────────────────────────────────────────────── */
+
+.panel-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.on-call-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.on-call-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  transition: all var(--transition-fast);
+}
+
+.on-call-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.on-call-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.on-call-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.on-call-status.online  { background: #16a34a; box-shadow: 0 0 4px rgba(22, 163, 106, 0.4); }
+.on-call-status.standby { background: #cbd5e1; }
+
+.on-call-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.on-call-role {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  padding-left: 16px;
+}
+
+/* ── Recent Activity ───────────────────────────────────────────────────── */
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activity-item {
+  position: relative;
+  padding-left: 16px;
+}
+
+.activity-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-hover);
+}
+
+.activity-item.activity-open::before    { background: var(--status-open); }
+.activity-item.activity-investigating::before { background: #d97706; }
+.activity-item.activity-resolved::before { background: #16a34a; }
+.activity-item.activity-closed::before  { background: var(--text-muted); }
+
+.activity-action {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.activity-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.activity-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ── Stats Summary ─────────────────────────────────────────────────────── */
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.summary-stat {
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.summary-stat:hover {
+  border-color: var(--border-hover);
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.summary-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.summary-val-p0      { color: var(--severity-p0, #dc2626); }
+.summary-val-signals { color: var(--accent-primary, #0284c7); }
+.summary-val-total   { color: var(--text-primary); }
+.summary-val-mttr    { color: #16a34a; }
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .activity-panel {
+    padding: 20px;
+  }
+
+  .stats-summary {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-panel {
+    padding: 16px;
+  }
+
+  .stats-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .on-call-list {
+    margin-bottom: 16px;
+  }
+
+  .activity-list {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .activity-panel {
+    padding: 12px;
+  }
+
+  .summary-value {
+    font-size: 18px;
+  }
+
+  .summary-stat {
+    padding: 10px;
+  }
+}
+

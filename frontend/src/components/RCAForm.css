@@ -1,0 +1,123 @@
+/* ── RCA Form — Light Theme ────────────────────────────────────────────── */
+
+.rca-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeIn 0.3s ease;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rca-form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rca-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.rca-form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.rca-form-field textarea,
+.rca-form-field input {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.rca-form-field textarea:focus,
+.rca-form-field input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.rca-form-field textarea::placeholder,
+.rca-form-field input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Date row — side by side only when enough space */
+.rca-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Date inputs — respects light/dark theme */
+.rca-form-field input[type="datetime-local"] {
+  font-size: 12px;
+  padding: 8px 8px;
+  max-width: 100%;
+}
+
+/* ── Submit Button ─────────────────────────────────────────────────────── */
+
+.rca-submit-btn {
+  padding: 10px 20px;
+  background: var(--accent-primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.2);
+  width: 100%;
+}
+
+.rca-submit-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.rca-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Error ──────────────────────────────────────────────────────────────── */
+
+.rca-error {
+  padding: 8px 12px;
+  background: var(--status-open-bg);
+  border: 1px solid var(--status-open);
+  border-radius: var(--radius-sm);
+  color: var(--status-open);
+  font-size: 13px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* ── Responsive — stack date fields on narrow panels ───────────────────── */
+
+@media (max-width: 400px) {
+  .rca-date-row {
+    grid-template-columns: 1fr;
+  }
+
+  .rca-form-field input[type="datetime-local"] {
+    font-size: 11px;
+    padding: 8px 6px;
+  }
+}

@@ -1,0 +1,315 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   IMS Design System — Light + Dark Professional Theme
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── CSS Variables (Design Tokens) — LIGHT (default) ───────────────────── */
+
+:root {
+  /* Background layers */
+  --bg-primary:    #fafbfc;
+  --bg-surface:    #ffffff;
+  --bg-hover:      #f1f5f9;
+  --bg-muted:      #f8fafc;
+  --bg-active:     #eff6ff;
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #ffffff;
+
+  /* Accent */
+  --accent-primary:  #0284c7;
+  --accent-hover:    #0369a1;
+  --accent-light:    #eff6ff;
+  --accent-border:   #bfdbfe;
+  --accent-glow:     rgba(2, 132, 199, 0.1);
+
+  /* Severity colors */
+  --severity-p0:       #dc2626;
+  --severity-p0-bg:    #fef2f2;
+  --severity-p1:       #d97706;
+  --severity-p1-bg:    #fffbeb;
+  --severity-p2:       #0284c7;
+  --severity-p2-bg:    #f0f9ff;
+
+  /* Status colors */
+  --status-open:             #dc2626;
+  --status-open-bg:          #fee2e2;
+  --status-investigating:    #92400e;
+  --status-investigating-bg: #fef3c7;
+  --status-resolved:         #166534;
+  --status-resolved-bg:      #dcfce7;
+  --status-closed:           #475569;
+  --status-closed-bg:        #f1f5f9;
+
+  /* Borders */
+  --border-color:   #e2e8f0;
+  --border-hover:   #cbd5e1;
+  --border-accent:  #bfdbfe;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-lg:  0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-xl:  0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Transition */
+  --transition-fast:   150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow:   300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Font */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --sidebar-width: 240px;
+  --right-panel-width: 320px;
+  --header-height: 72px;
+}
+
+/* ── CSS Variables — DARK THEME ────────────────────────────────────────── */
+
+[data-theme="dark"] {
+  /* Background layers */
+  --bg-primary:    #0f1117;
+  --bg-surface:    #1a1d27;
+  --bg-hover:      #252836;
+  --bg-muted:      #161923;
+  --bg-active:     #1e2a3a;
+
+  /* Text */
+  --text-primary:   #e8eaf0;
+  --text-secondary: #94a0b8;
+  --text-muted:     #5c6478;
+  --text-inverse:   #0f172a;
+
+  /* Accent */
+  --accent-primary:  #38bdf8;
+  --accent-hover:    #7dd3fc;
+  --accent-light:    rgba(56, 189, 248, 0.08);
+  --accent-border:   rgba(56, 189, 248, 0.2);
+  --accent-glow:     rgba(56, 189, 248, 0.15);
+
+  /* Severity colors (brighter for dark bg) */
+  --severity-p0:       #f87171;
+  --severity-p0-bg:    rgba(248, 113, 113, 0.12);
+  --severity-p1:       #fbbf24;
+  --severity-p1-bg:    rgba(251, 191, 36, 0.1);
+  --severity-p2:       #38bdf8;
+  --severity-p2-bg:    rgba(56, 189, 248, 0.1);
+
+  /* Status colors */
+  --status-open:             #f87171;
+  --status-open-bg:          rgba(248, 113, 113, 0.12);
+  --status-investigating:    #fbbf24;
+  --status-investigating-bg: rgba(251, 191, 36, 0.1);
+  --status-resolved:         #4ade80;
+  --status-resolved-bg:      rgba(74, 222, 128, 0.1);
+  --status-closed:           #6b7280;
+  --status-closed-bg:        rgba(107, 114, 128, 0.12);
+
+  /* Borders */
+  --border-color:   #2a2e3a;
+  --border-hover:   #3a3f4e;
+  --border-accent:  rgba(56, 189, 248, 0.2);
+
+  /* Shadows (deeper for dark mode) */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md:  0 1px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg:  0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-xl:  0 8px 28px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-family);
+  outline: none;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Keyframes ─────────────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  to { transform: translateY(-10px); opacity: 0; }
+}
+
+/* ── Shared Badge Styles ───────────────────────────────────────────────── */
+
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  line-height: 1.3;
+}
+
+.severity-p0-badge {
+  background: var(--severity-p0-bg);
+  color: var(--severity-p0);
+}
+
+.severity-p1-badge {
+  background: var(--severity-p1-bg);
+  color: var(--severity-p1);
+}
+
+.severity-p2-badge {
+  background: var(--severity-p2-bg);
+  color: var(--severity-p2);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  line-height: 1.3;
+}
+
+.status-open {
+  background: var(--status-open-bg);
+  color: var(--status-open);
+}
+
+.status-investigating {
+  background: var(--status-investigating-bg);
+  color: var(--status-investigating);
+}
+
+.status-resolved {
+  background: var(--status-resolved-bg);
+  color: var(--status-resolved);
+}
+
+.status-closed {
+  background: var(--status-closed-bg);
+  color: var(--status-closed);
+}
+
+/* ── Utility ───────────────────────────────────────────────────────────── */
+
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 16px 0;
+}

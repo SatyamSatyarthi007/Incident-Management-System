@@ -1,0 +1,105 @@
+services:
+  # ── PostgreSQL (Source of Truth — Work Items + RCA) ──
+  postgres:
+    image: postgres:16-alpine
+    container_name: ims-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ims
+      POSTGRES_USER: ims_user
+      POSTGRES_PASSWORD: ims_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ims_user -d ims"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── MongoDB (Data Lake — Raw signals / audit log) ──
+  mongodb:
+    image: mongo:7
+    container_name: ims-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ims_user
+      MONGO_INITDB_ROOT_PASSWORD: ims_secret
+      MONGO_INITDB_DATABASE: ims
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis (Message Broker via Streams + Cache via Sorted Sets) ──
+  redis:
+    image: redis:7-alpine
+    container_name: ims-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Backend (FastAPI + Signal Processor) ──
+  backend:
+    build: ./backend
+    container_name: ims-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_HOST: postgres
+      MONGODB_HOST: mongodb
+      REDIS_HOST: redis
+      POSTGRES_PORT: 5432
+      MONGODB_PORT: 27017
+      REDIS_PORT: 6379
+      POSTGRES_DB: ims
+      POSTGRES_USER: ims_user
+      POSTGRES_PASSWORD: ims_secret
+      MONGODB_USER: ims_user
+      MONGODB_PASSWORD: ims_secret
+      MONGODB_DB: ims
+      JWT_SECRET: ims-jwt-secret-change-in-production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+
+  # ── Frontend (React + Vite served via nginx) ──
+  frontend:
+    build: ./frontend
+    container_name: ims-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  pg_data:
+  mongo_data:
+  redis_data:
+
