@@ -37,8 +37,8 @@ class UserTable(Base):
     email = Column(String(255), nullable=False, unique=True, index=True)
     password_hash = Column(String(255), nullable=False)
     designation = Column(String(200), nullable=False, default="Engineer")
-    role = Column(String(20), nullable=False, default=UserRole.VIEWER.value)
-    is_active = Column(Boolean, nullable=False, default=True)
+    role = Column(String(20), nullable=False, default=UserRole.VIEWER.value, server_default=UserRole.VIEWER.value)
+    is_active = Column(Boolean, nullable=False, default=True, server_default="true")
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 
